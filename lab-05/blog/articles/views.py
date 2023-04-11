@@ -18,10 +18,16 @@ def create_post(request):
     }
             # в словаре form будет храниться информация, введенная пользователем
     if form["text"] and form["title"]:
+        try: 
+            n = Article.objects.create(text=form["text"], title=form["title"], author=request.user)
+        except:
+            form['errors'] = u"Название статьи должно быть уникальным"
+            return render(request, 'create_post.html', {'form': form})
+
         # если поля заполнены без ошибок
-        n = Article.objects.create(text=form["text"], title=form["title"], author=request.user)
         n.save()
         return redirect('get_article', article_id=n.id)
+        
         # перейти на страницу поста
     else:
     # если введенные данные некорректны
