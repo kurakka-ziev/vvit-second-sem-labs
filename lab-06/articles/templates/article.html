@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{{ post.title }}</title>
+	<link rel="stylesheet" href="{{ STATIC_URL }}/static/css/article.css">
+</head>
+<body>
+<div class="header">
+	<img src="https://sun9-52.userapi.com/impg/VMj92lhQhuJHS7ggZxiOTSTWz2w0E8GHya8-sg/SY_KDc3Ccmo.jpg?size=1639x2160&quality=95&sign=58b051e4ca8f52eda9dc870977583dde&type=album" >
+	<div class="navigation_block">
+		<a href="{% url 'archive' %}">Все статьи</a>
+		{% if request.user.is_anonymous %}
+		<a href="{% url 'register' %}">Регистрация</a>
+		<a href="{% url 'login' %}">Логин</a>
+		{% else %}
+		<a href="{% url 'logout' %}">Выход из аккаунта</a>
+		{% endif %}
+	</div>
+</div>
+<div class="one-post">
+	<h2 class="post-title"><a href="/article/{{post.id}}">{{ post.title }}</a></h2>
+	<div class="article-info">
+		<div class="article-author">{{ post.author.username }}</div>
+		<div class="article-created-date">{{ post.created_date }}</div>
+	</div>
+	<p class="article-text">{{ post.text }}</p>
+</div>
+</body>
+</html>

@@ -33,4 +33,3 @@ def create_post(request):
     # если введенные данные некорректны
         form['errors'] = u"Не все поля заполнены"
         return render(request, 'create_post.html', {'form': form})
-
